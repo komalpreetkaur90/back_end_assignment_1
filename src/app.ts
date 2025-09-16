@@ -1,7 +1,9 @@
 import express from "express";
-import { calculatePortfolioPerformance } from "./portfolio/portfolioPerformance";
-import { findLargestHoldingPortfolio } from "./portfolio/portfolioFunctions";
-import { calculateAssetAllocationPortfolio } from "./portfolio/portfolioPerformance";
+import {
+  calculatePortfolioPerformance,
+  findLargestHoldingPortfolio,
+  calculateAssetAllocationPortfolio
+} from "./portfolio/portfolioPerformance";
 
 const app = express();
 const version = "1.0.0";
