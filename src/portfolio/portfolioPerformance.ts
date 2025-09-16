@@ -44,3 +44,50 @@ export function calculatePortfolioPerformance(
             performanceSummary,
         };
     }
+
+export interface Asset {
+    name: string;
+    value: number;
+}
+
+export function findLargestHoldingPortfolio(assets: Asset[]) {
+    switch (true) {
+        case assets.length === 0:
+            const summaryEmpty = () => "No assets in the portfolio.";
+            return { largest: null, summary: summaryEmpty };
+    }
+    let largest: Asset = assets[0];
+    for (let i = 1; i < assets.length; i++) {
+        const asset = assets[i];
+        switch (true) {
+            case asset.value > largest.value:
+                largest = asset;
+                break;
+        }
+    }
+    const summary = () => `The largest holding is "${largest.name}" valued at $${largest.value}.`;
+    return {largest, summary};
+}
+
+
+export function calculateAssetAllocationPortfolio(assets: Asset[]) {
+    let totalValue = 0;
+    for (let asset of assets) {
+        totalValue += asset.value;
+    }
+    const allocations = assets.map(asset => ({
+        asset,
+        percentage: (asset.value / totalValue) * 100,
+        allocationSummary: () => `"${asset.name}" represents ${((asset.value / totalValue) * 100).toFixed(2)}% of the portfolio.`
+    }));
+    const summary = () => {
+        switch (true) {
+            case allocations.length === 0:
+                return "No assets in the portfolio.";
+            default:
+                return `Asset allocation calculated for ${allocations.length} assets.`;
+        }
+    };
+
+    return { allocations, summary };
+}
